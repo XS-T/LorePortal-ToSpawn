@@ -1,0 +1,5 @@
+name: LorePortal To Spawn
+version: '${project.version}'
+main: xst.loreportaltospawn.Main
+api-version: 1.19
+description: Exactly what u think it is
