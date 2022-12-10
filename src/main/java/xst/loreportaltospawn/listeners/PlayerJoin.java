@@ -15,19 +15,23 @@ public class PlayerJoin implements Listener {
 
     @EventHandler
     public void onPlrJoin(PlayerJoinEvent e){
-        String conf = (String) this.plugin.getConfig().get("toggle");
-        if(conf == "enabled") {
+        boolean isEnabled = this.plugin.getConfig().getBoolean("toggle");
+
+        double xCord = this.plugin.getConfig().getDouble("x");
+        double yCord = this.plugin.getConfig().getDouble("y");
+        double zCord = this.plugin.getConfig().getDouble("z");
+        double pitch = this.plugin.getConfig().getDouble("pitch");
+        double yaw = this.plugin.getConfig().getDouble("yaw");
+
+        if(isEnabled) {
             Player p = e.getPlayer();
             Location local = p.getLocation();
-            local.setX(0.766);
-            local.setY(76);
-            local.setZ(0.064);
-            local.setYaw((float) -98.6);
-            local.setPitch((float) 2.7);
+            local.setX(xCord);
+            local.setY(yCord);
+            local.setZ(zCord);
+            local.setYaw((float) yaw);
+            local.setPitch((float) pitch);
             p.teleport(local);
-        }else{
-            Player  p = e.getPlayer();
-            p.sendMessage("Somthing with the config is not working");
         }
     }
 }
