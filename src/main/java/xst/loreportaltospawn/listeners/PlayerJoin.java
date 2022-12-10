@@ -1,6 +1,8 @@
 package xst.loreportaltospawn.listeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,15 +25,14 @@ public class PlayerJoin implements Listener {
         double pitch = this.plugin.getConfig().getDouble("pitch");
         double yaw = this.plugin.getConfig().getDouble("yaw");
 
+        String worldName = this.plugin.getConfig().getString("world-name");
+
         if(isEnabled) {
             Player p = e.getPlayer();
-            Location local = p.getLocation();
-            local.setX(xCord);
-            local.setY(yCord);
-            local.setZ(zCord);
-            local.setYaw((float) yaw);
-            local.setPitch((float) pitch);
-            p.teleport(local);
+            Location location = new Location(Bukkit.getWorld(worldName), xCord, yCord, zCord, (float) yaw, (float) pitch);
+            if (!p.teleport(location)) {
+                Bukkit.getLogger().warning("Error teleporting " + p.getName() + ". Please ensure config is correct!");
+            }
         }
     }
 }
